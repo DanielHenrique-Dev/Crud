@@ -1,0 +1,65 @@
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">Users</h1>
+	</div>
+
+	<div class="table-responsive">
+	 <?php if (isset($users)) { ?>	
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Country</th>
+				   <?php if($_SESSION['logged_user']['nivel'] == 1) :?>
+					<th>Nivel de acesso</th>
+				   <?php endif; ?>	
+				   <?php if($_SESSION['logged_user']['nivel'] == 0) :?>
+					<th>Solicitar nova Senha</th>
+				   <?php endif; ?>	
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($users as $user) : ?>
+				  <?php if($_SESSION['logged_user']['nivel'] == 1) :?>
+						<tr>
+							<td><?= $user->id ?></td>
+							<td><?= $user->name ?></td>
+							<td><?= $user->email ?></td>
+							<td><?= $user->country ?></td>
+							
+							<td>			
+						 		 	<?php if ($user->id > 1) : ?> 
+						 		 		   <a href="<?= base_url() ?>users/edit_user/<?= $user->id ?>"> <i class="fas fa-user-edit"></i> </a>
+								  	<?php endif; ?>
+							</td>
+						
+						</tr>
+				  <?php else: ?>
+				  		<tr>
+							<td><?= $user['id'] ?></td>
+							<td><?= $user['name'] ?></td>
+							<td><?= $user['email'] ?></td>
+							<td><?= $user['country'] ?></td>
+							<td>
+	
+								<a href="javascript:Mensagem()" class="btn btn-sm btn-danger"><i class="fas fa-key"></i></a>
+							</td>
+						</tr>
+				  <?php endif; ?>		
+				  		
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+		<?php } else { ?>
+			<div>No user(s) found.</div>
+        <?php } ?>
+		 		<?php if (isset($links)) { ?>			
+					<?php echo $links ?>
+				<?php } ?>          
+	
+	</div>
+</main>
+  
+ 
