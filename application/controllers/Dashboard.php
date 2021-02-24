@@ -22,11 +22,9 @@ class Dashboard extends CI_Controller
 		$dados["users"]  = $this->users_model->dashboard_index();
 		$dados["title"] = "Dashboard - CodeIgniter";
 
-		$this->load->view('templates/header', $dados);
-		$this->load->view('templates/nav-top', $dados);
+		
 		$this->load->view('pages/dashboard', $dados);
-		$this->load->view('templates/footer', $dados);
-		$this->load->view('templates/js', $dados);
+		
 		
 
 	}
@@ -39,14 +37,66 @@ class Dashboard extends CI_Controller
 
 		if($this->form_validation->run() == TRUE)
 		{
-			$dados["title"] = "Resultado da Pesquisa por *" . $_POST["busca"] . "*";
-			$dados["resultado"] = $this->busca_model->buscar($_POST);
+			$dados["title"] = "Resultado da Pesquisa por *" . $this->input->post('busca') . "*";
+			$dados["resultado"] = $this->busca_model->buscar_games($this->input->post('busca'));
 
-			$this->load->view('templates/header', $dados);
-			$this->load->view('templates/nav-top', $dados);
+			
 			$this->load->view('pages/resultado', $dados);
-			$this->load->view('templates/footer', $dados);
-			$this->load->view('templates/js', $dados);
+		
+		}
+		
+	}
+
+	public function pesquisar_usuario()
+	{
+		$this->load->model("busca_model");
+
+		$this->form_validation->set_rules('busca', 'Busca', 'callback_text_check');
+
+		if($this->form_validation->run() == TRUE)
+		{
+			$dados["title"] = "Resultado da Pesquisa por *" . $this->input->post('busca') . "*";
+			$dados["users"] = $this->busca_model->buscar_user($this->input->post('busca'));
+
+			
+			$this->load->view('pages/users', $dados);
+		
+		}
+		
+	}
+
+	public function pesquisar_category()
+	{
+		$this->load->model("busca_model");
+
+		$this->form_validation->set_rules('busca', 'Busca', 'callback_text_check');
+
+		if($this->form_validation->run() == TRUE)
+		{
+			$dados["title"] = "Resultado da Pesquisa por *" . $this->input->post('busca') . "*";
+			$dados["category"] = $this->busca_model->buscar_category($this->input->post('busca'));
+
+		
+			$this->load->view('pages/category', $dados);
+		
+		}
+		
+	}
+
+	public function pesquisar_mygames()
+	{
+		$this->load->model("busca_model");
+
+		$this->form_validation->set_rules('busca', 'Busca', 'callback_text_check');
+
+		if($this->form_validation->run() == TRUE)
+		{
+			$dados["title"] = "Resultado da Pesquisa por *" . $this->input->post('busca') . "*";
+			$dados["resultado"] = $this->busca_model->buscar_mygames($this->input->post('busca'));
+
+			
+			$this->load->view('pages/resultado', $dados);
+			
 		}
 		
 	}

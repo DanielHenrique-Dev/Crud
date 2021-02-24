@@ -2,8 +2,29 @@
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="<?= base_url()?>dashboard">Games 4 Devs</a>
 	<div>
 
-    <?= form_open('dashboard/pesquisar'); ?>
+    <?php
+          $urlm2 = base_url('dashboard/pesquisar_mygames');
+          $urlm = base_url('mygames/mygames_listar');
+          $urld = base_url('dashboard');
+          $urlg = base_url('games');
+          $urlg2 = base_url('dashboard/pesquisar');  
+          $urlc = base_url('category');
+          $urlc2 = base_url('dashboard/pesquisar_category'); 
+          $urlAtt = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
+    ?>
+
+    <?php if($urlg == $urlAtt || $urlg2 == $urlAtt ) { ?>
+      <?= form_open('dashboard/pesquisar'); ?>
+    <?php } elseif ($urlc == $urlAtt || $urlc2 == $urlAtt) { ?>  
+      <?= form_open('dashboard/pesquisar_category'); ?>  
+    <?php } elseif ($urlm == $urlAtt || $urlm2 == $urlAtt) { ?>
+      <?= form_open('dashboard/pesquisar_mygames'); ?>      
+    <?php } else { ?>  
+      <?= form_open('dashboard/pesquisar_usuario'); ?>
+    <?php } ?>
+      <?php if ($urld != $urlAtt) { ?>
 		  	<input class="form-control form-control-dark" type="text" name="busca" id="busca" placeholder="Search" aria-label="Search" value="">
+      <?php } ?>  
 		<?= form_close(); ?>
 	</div>
   <ul class="navbar-nav px-3">

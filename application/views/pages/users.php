@@ -1,3 +1,9 @@
+<?php 
+	$this->load->view('templates/header');
+	$this->load->view('templates/nav-top');
+
+?>
+
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 		<h1 class="h2">Users</h1>
@@ -12,17 +18,17 @@
 					<th>Name</th>
 					<th>Email</th>
 					<th>Country</th>
-				   <?php if($_SESSION['logged_user']['nivel'] == 1) :?>
+				   <?php if($this->session->logged_user['nivel'] == 1) :?>
 					<th>Nivel de acesso</th>
 				   <?php endif; ?>	
-				   <?php if($_SESSION['logged_user']['nivel'] == 0) :?>
+				   <?php if($this->session->logged_user['nivel'] == 0) :?>
 					<th>Solicitar nova Senha</th>
 				   <?php endif; ?>	
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach($users as $user) : ?>
-				  <?php if($_SESSION['logged_user']['nivel'] == 1) :?>
+				  <?php if($this->session->logged_user['nivel'] == 1) :?>
 						<tr>
 							<td><?= $user->id ?></td>
 							<td><?= $user->name ?></td>
@@ -30,9 +36,13 @@
 							<td><?= $user->country ?></td>
 							
 							<td>			
-						 		 	<?php if ($user->id > 1) : ?> 
+						 		 	<?php if ($this->session->logged_user['id'] == 1) { ?> 
 						 		 		   <a href="<?= base_url() ?>users/edit_user/<?= $user->id ?>"> <i class="fas fa-user-edit"></i> </a>
-								  	<?php endif; ?>
+								  	<?php } else { ?>
+										<?php if ($user->id > 1) : ?> 
+						 		 		   <a href="<?= base_url() ?>users/edit_user/<?= $user->id ?>"> <i class="fas fa-user-edit"></i> </a>
+								  		<?php endif; ?>
+									<?php } ?>  
 							</td>
 						
 						</tr>
@@ -61,5 +71,11 @@
 	
 	</div>
 </main>
+
+<?php
+$this->load->view('templates/footer');
+$this->load->view('templates/js');
+
+?>
   
  

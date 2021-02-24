@@ -1,4 +1,10 @@
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+<?php 
+	$this->load->view('templates/header');
+	$this->load->view('templates/nav-top');
+
+?>
+	
+	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2"><?= $title ?></h1>
       </div>
@@ -13,13 +19,26 @@
 
 	    
 	    <!-- game é esta no models -->
-		<?php if(isset($game)) { ?>			
-		<?php	$id = $game["id"] ?>
-		<?php	$url = "games/edit/" . $id ?>	
-			 <?php echo form_open($url); ?>	
-		<?php } else { ?>
-			 <?php echo form_open("games/new"); ?>
-		<?php } ?>	 			
+		<?php if(isset($game)) 
+		{ 			
+			$id = $game["id"]; 
+			$url = "games/edit/" . $id;	
+			echo form_open($url);
+
+			$id_user_log = $this->session->logged_user['id'];
+				  if($id_user_log != $game['user_id'])
+				  {
+					  redirect('dashboard');
+				  }		
+		
+
+		 }else
+		 {
+			 echo form_open("games/new");
+		 }
+
+		 ?>	
+		  
 
 					<div class="col-md-6">
 						<div class="form-group">
@@ -67,3 +86,9 @@
     </main>
   </div>
 </div>
+
+<?php
+$this->load->view('templates/footer');
+$this->load->view('templates/js');
+
+?>

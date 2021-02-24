@@ -1,3 +1,9 @@
+<?php 
+	$this->load->view('templates/header');
+	$this->load->view('templates/nav-top');
+
+?>
+
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 		<h1 class="h2">Games</h1>
@@ -7,7 +13,7 @@
 	</div>
 
 	<div class="table-responsive">
-		<?php if (isset($games)) { ?>	
+		<?php if ($number > 0) { ?>	
 			<table class="table table-bordered table-hover">
 				<thead>
 					<tr>
@@ -27,15 +33,15 @@
 							<td><?php echo $game->price?></td>	
 							<?php $id = intval($game->category_id) ?>
 							<?php $resultado = $this->category_model->get_category($id);?>							
-							<td><?= isset($game->category_id) ? $resultado : '' ?></td>						
+							<td><?= isset($game->category_id) ? $resultado : '(Nenhuma categoria selecionada!)' ?></td>						
 							<td><?php echo $game->developer ?></td>
 							<td>
-								<?php if($_SESSION["logged_user"]["id"] === $game->user_id) : ?>
+								<?php if($this->session->logged_user['id'] === $game->user_id) : ?>
 									<a href="<?= base_url() ?>games/edit/<?= $game->id ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
 									<a href="javascript:goDelete(<?= $game->id ?>)" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
 								<?php else : ?>
-									<button disabled type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
-									<button disabled type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+									<button disabled type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt" title="Apenas quem inseriu pode editar!"></i></a>
+									<button disabled type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt" title="Apenas quem inseriu pode excluir!"></i></a>
 								<?php endif; ?>
 							</td>
 						</tr>
@@ -43,18 +49,26 @@
 				</tbody>
 			</table>
 		<?php } else { ?>
-			<div>No user(s) found.</div>
+			<div class="d-flex justify-content-center">
+					<h1>Nenhum jogo inserido!</h1>
+			</div>
         <?php } ?>
+			
 		 		<?php if (isset($links)) { ?>			
 					<?php echo $links ?>
 				<?php } ?>          
-	
+				
 	</div>
 </main>
+
+<?php
+$this->load->view('templates/footer');
+$this->load->view('templates/js');
+
+?>
   
 <script>
 	function goDelete(id) {
-		var myUrl = 'games/edit/'+id;
 		if(confirm("Deseja apagar este registro?")) {
 			window.location.href = 'games/destroy/'+id;
 		} else {

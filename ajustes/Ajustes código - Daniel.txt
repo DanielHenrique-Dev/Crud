@@ -1,0 +1,108 @@
+- Melhorar a forma de carregar os templates para não ter que ficar se repetindo (pesquisar por php include)
+
+- Melhorar a função de callback text_check para se caso houver tags dar erro ao inserir e mostrar mensagem
+
+- Verificar funções q não estão sendo utilizadas
+
+- Verificar indentações e tabulações, para deixar o código mais organizado
+-------------------------------------------------------------------
+
+SIGNUP 
+
+Está sendo possível se cadastrar utilizando emails que já foram cadastrados e então gerando um problema na hora de logar
+
+-------------------------------------------------------------------
+
+DASHBOARD
+
+controllers -> dashboard.php
+
+- Utilizar $this->input->post('nome_do_campo') ao invés de $_POST;
+
+
+em views
+Utilizar o $this->session->userdata('logged_user') ao invés de $_SESSION['logged_user'].
+
+----------------------------------------------------------------------------
+
+GAMES 
+
+Em controllers
+Somente utilizar o $this->load->model/library/helper(''); na função que será utilizada caso contrario vc estará carregando sem necessidade.
+
+function update está sendo utilizada?
+
+- Ao excluir jogo verificar se a pessoa que está excluindo foi a que inseriu para não 
+haver como manipular 
+
+- Ao editar e inserir jogos: É interessante que as regras do form validation seja equivalente ao seu banco. Ex.: O campo descrição da tb_games é varchar(255) então nas regras deverá ser max_length[255]. 
+
+em views
+games.php
+Utilizar o $this->session->userdata('logged_user') ao invés de $_SESSION['logged_user'].
+
+Verificar variavel myUrl na função goDelete();
+
+form-games.php
+Linha 15 a 22
+Simplificar as tags "<?php" (vc pode fazer direto sem precisar abrir e fechar várias vezes)
+
+Em models
+
+não é necessário fazer a verificação if($query ->num_rows() > 0) 
+pois no controller vc só faz a consulta se total_records > 0
+
+-----------------------------------------------------------------------------------
+
+USERS
+
+Consigo editar qualquer usuário somente manipulando a url 
+
+Controllers e Models
+
+verificar funções que não estão sendo utilizadas
+
+View:
+Utilizar o $this->session->userdata('logged_user') ao invés de $_SESSION['logged_user'].
+
+----------------------------------------------------------------------------------------
+ 
+MY GAMES
+
+View:
+Se não houver jogos inseridos não mostra a tabela de jogos e mostra mensagem "Nenhum jogo inserido" (ou algo do tipo).
+Linha 29: Não é necessário o uso da função intval
+
+Model:
+não é necessário fazer a verificação if($query ->num_rows() > 0) 
+pois no controller vc só faz a consulta se total_records > 0
+
+
+----------------------------------------------------------------------------------------
+
+CATEGORY
+
+View:
+Se não houver categorias inseridas não mostra a tabela e mostra mensagem "Nenhuma categoria existente" (ou algo do tipo).
+trocar $_SESSION por $this->session->userdata;
+
+controller:
+mudar $_SESSION['logged_user'] e $_POST['category'];
+
+model:
+não é necessário fazer a verificação if($query ->num_rows() > 0) 
+pois no controller vc só faz a consulta se total_records > 0
+
+----------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+

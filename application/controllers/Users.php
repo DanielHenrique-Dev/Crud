@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Users extends CI_Controller
 {
@@ -15,50 +15,15 @@ class Users extends CI_Controller
 	}
 
 	public function index()
-	{	
+	{
 
-	//	$query = $this->db->get_where("tb_users", array('id' => 1));
+		$nivel = $this->session->logged_user['nivel'];
 
-//			foreach ($query->result_array() as $row)
-//			{
-//			        if($row['id'] == 1 )
-//			        {
-//			        	echo 'finalmente viado';
-//			        }
-			//}
-		//$this->db->select('nivel');
-		//$acesso = $this->db->get('tb_users')->row_array();
-		//print_r($_SESSION);
-		//die();
-
-		$nivel = $_SESSION['logged_user']['nivel'];
-				
-		if($nivel == 1)
-		{	
+		if ($nivel == 1) {
 			$this->admin();
-		}else{
+		} else {
 			$this->usuarios();
-		}	
-	}
-
-	public function edit($id)
-	{
-		$dados["user"]  = $this->users_model->show($id);
-		$dados["title"] = "Edit - CodeIgniter";
-
-		$this->load->view('templates/header', $dados);
-		$this->load->view('templates/nav-top', $dados);
-		$this->load->view('pages/form-users', $dados);
-		$this->load->view('templates/footer', $dados);
-		$this->load->view('templates/js', $dados);
-	}
-
-	public function update($id)
-	{
-		$this->load->model("users_model");
-		$game = $_POST;
-		$this->users_model->update($id, $game);
-		redirect("dashboard");
+		}
 	}
 
 	public function admin()
@@ -68,8 +33,7 @@ class Users extends CI_Controller
 		$start = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 		$total_records = $this->users_model->get_total();
 
-		if ($total_records > 0)
-		 {
+		if ($total_records > 0) {
 			$dados["users"] = $this->users_model->index_administrador($limit, $start);
 
 			//configuração da paginação
@@ -79,30 +43,33 @@ class Users extends CI_Controller
 			$config['uri_segment'] = 3;
 
 			//estilo da paginação
-			$config['full_tag_open'] = '<div class="pagination justify-content-center">';
-			$config['full_tag_close'] = '</div> ';
-			$config['first_tag_open'] = ' <button class="btn btn-light" > ';
-			$config['first_tag_close'] = '</button class="btn btn-light">  ';
-			$config['prev_tag_open'] = '<button class="btn btn-light"> ';
-			$config['prev_tag_close'] = '</button class="btn btn-light"> ';
-			$config['next_tag_open'] = '<button class="btn btn-light"> ';
-			$config['next_tag_close'] = '</button class="btn btn-light"> ';
-			$config['last_tag_open'] = '<button class="btn btn-light"> ';
-			$config['last_tag_close'] = '</button class="btn btn-light"> ';
-			$config['cur_tag_open'] = '<button class="btn btn-light"  class="active">';
-			$config['cur_tag_close'] = '</a></button class="btn btn-light"> ';
-			$config['num_tag_open'] = '<button class="btn btn-light"> ';
-			$config['num_tag_close'] = '</button class="btn btn-light"> ';
+			$config['full_tag_open'] = '<ul class="pagination justify-content-center">';
+			$config['full_tag_close'] = '</ul>';
+			$config['attributes'] = ['class' => 'page-link'];
+			$config['first_link'] = '&lsaquo; Primeira';
+			$config['last_link'] = 'Última &rsaquo;';
+			$config['first_tag_open'] = '<li class="page-item">';
+			$config['first_tag_close'] = '</li>';
+			$config['prev_link'] = '&laquo';
+			$config['prev_tag_open'] = '<li class="page-item">';
+			$config['prev_tag_close'] = '</li>';
+			$config['next_link'] = '&raquo';
+			$config['next_tag_open'] = '<li class="page-item">';
+			$config['next_tag_close'] = '</li>';
+			$config['last_tag_open'] = '<li class="page-item">';
+			$config['last_tag_close'] = '</li>';
+			$config['cur_tag_open'] = '<li class="page-item active"><a href="#" class="page-link">';
+			$config['cur_tag_close'] = '<span class="sr-only">(atual)</span></a></li>';
+			$config['num_tag_open'] = '<li class="page-item">';
+			$config['num_tag_close'] = '</li>';
 			//////////////////////////////////
 
 			$this->pagination->initialize($config);
 
 			$dados['links'] = $this->pagination->create_links();
-
-
 		}
 
-	
+
 		$dados["title"] = "Users - CodeIgniter";
 
 		$this->load->view('templates/header', $dados);
@@ -110,7 +77,6 @@ class Users extends CI_Controller
 		$this->load->view('pages/users', $dados);
 		$this->load->view('templates/footer', $dados);
 		$this->load->view('templates/js', $dados);
-
 	}
 	public function usuarios()
 	{
@@ -124,45 +90,40 @@ class Users extends CI_Controller
 		$this->load->view('templates/js', $dados);
 	}
 
-	 public function edit_user($id)
-	{	
+	public function edit_user($id)
+	{
 
 		$dados["user"]  = $this->users_model->show($id);
 		$dados["title"] = "Edit User - CodeIgniter";
-		
-			$this->form_validation->set_rules('name', 'Name', 'required|min_length[3]|max_length[24]|callback_text_check');
-			$this->form_validation->set_rules('email', 'E-mail', 'required|callback_text_check');
-			$this->form_validation->set_rules('country', 'Country', 'required|min_length[3]|max_length[14]|callback_text_check');
-			$this->form_validation->set_rules('password', 'Senha', 'required|callback_text_check');
+
+		$this->form_validation->set_rules('name', 'Name', 'required|min_length[3]|max_length[24]|callback_text_check');
+		$this->form_validation->set_rules('email', 'E-mail', 'required|callback_text_check');
+		$this->form_validation->set_rules('country', 'Country', 'required|min_length[3]|max_length[14]|callback_text_check');
+		$this->form_validation->set_rules('password', 'Senha', 'required|callback_text_check');
 
 
-		if($this->form_validation->run() == FALSE){
+		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('templates/header', $dados);
 			$this->load->view('templates/nav-top', $dados);
 			$this->load->view('pages/edit-users', $dados);
 			$this->load->view('templates/footer', $dados);
 			$this->load->view('templates/js', $dados);
-		}else{
+		} else {
 			$user = array(
-						"name" => $_POST["name"],
-						"email" => $_POST["email"],
-						"country" => $_POST["country"],						
-						"password" => md5($_POST["password"]),
-						"nivel" => $_POST["nivel"],
-						"ativo" => $_POST["ativo"]
+				"name" => $this->input->post("name"),
+				"email" => $this->input->post("email"),
+				"country" => $this->input->post("country"),
+				"password" => md5($this->input->post("password")),
+				"nivel" => $this->input->post("nivel"),
+				"ativo" => $this->input->post("ativo")
 			);
 			$this->users_model->update_user($id, $user);
 			redirect("users");
 		}
 	}
 
-		public function text_check ($texto)
-		{
-			return strip_tags($texto, '<p><a>');
-		}
-
-		
-	
-
-
+	public function text_check($texto)
+	{
+		return strip_tags($texto, '<p><a>');
+	}
 }

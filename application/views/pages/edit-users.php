@@ -1,3 +1,9 @@
+<?php 
+	$this->load->view('templates/header');
+	$this->load->view('templates/nav-top');
+
+?>
+
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2"><?= $title ?></h1>
@@ -14,8 +20,17 @@
 	    
 			<?php	$id = $user["id"] ?>
 			<?php	$url = "users/edit_user/" . $id ?>
-			<?php if($id > 1) : ?>	
 			<?php echo form_open($url); ?>
+
+			<?php 
+					if($id == 1 && $id != $this->session->logged_user['id'])
+					{
+						redirect('users');
+					}
+			
+			?>
+
+			
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="name">Name</label>
@@ -37,7 +52,7 @@
 						</div>
 					</div>
 
-					<?php if($_SESSION['logged_user']['id'] == 1 || $_SESSION['logged_user']['id'] == $user['id']  ) : ?>
+					
 						<div class="row col-md-12">
 							<div class="col-sm-4">
 								<div class="form-group">
@@ -46,7 +61,7 @@
 								</div>
 							</div>
 						</div>
-					<?php endif; ?>
+				
 
 				    	
 							<div class="col-md-4">
@@ -75,11 +90,14 @@
 						</div>
 					</div>
 				<?php echo form_close(); ?>
-				<?php else :?>
-					<?php redirect('users')?>
-				<?php endif; ?>	
 			</div>
 
     </main>
   </div>
 </div>
+
+<?php
+$this->load->view('templates/footer');
+$this->load->view('templates/js');
+
+?>

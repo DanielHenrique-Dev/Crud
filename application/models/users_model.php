@@ -4,7 +4,7 @@
 	{
 		public function index()
 		{
-			if($_SESSION['logged_user']['nivel'] == 2)
+			if($this->session->logged_user('nivel') == 1)
 			{	
 				$this->index_administrador();
 			}else{
@@ -47,6 +47,12 @@
 		public function store($user)
 		{
 			$this->db->insert("tb_users", $user);
+		}
+
+		public function check_email($email)
+		{
+			return $this->db->query("SELECT * FROM `tb_users` WHERE `email` = " . "'" . $email . "'")
+						    ->num_rows();
 		}
 
 		public function show($id)

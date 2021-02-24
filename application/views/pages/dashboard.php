@@ -1,3 +1,9 @@
+<?php 
+	$this->load->view('templates/header');
+	$this->load->view('templates/nav-top');
+
+?>
+
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 		<h1 class="h2">Dashboard</h1>
@@ -28,10 +34,10 @@
 						<td><?= reais($game["price"]) ?></td>
 						<?php $id = intval($game["category_id"]) ?>
 						<?php $resultado = $this->category_model->get_category($id);?>							
-						<td><?= isset($game["category_id"]) ? $resultado : '' ?></td>	
+						<td><?= isset($game["category_id"]) ? $resultado : '(Nenhuma categoria selecionada!)' ?></td>	
 						<td><?= $game["developer"] ?></td>
 						<td>
-							<?php if($_SESSION["logged_user"]["id"] === $game["user_id"]) : ?>
+							<?php if($this->session->logged_user['id'] == $game["user_id"]) : ?>
 								<a href="<?= base_url() ?>games/edit/<?= $game["id"] ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
 								<a href="javascript:goDelete(<?= $game['id'] ?>)" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
 							<?php else : ?>
@@ -72,6 +78,12 @@
 		</table>
 	</div>
 </main>
+
+<?php
+$this->load->view('templates/footer');
+$this->load->view('templates/js');
+
+?>
   
 <script>
 	function goDelete(id) {
