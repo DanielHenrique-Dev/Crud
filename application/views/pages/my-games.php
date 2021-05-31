@@ -12,6 +12,12 @@
 		</div>
 	</div>
 
+	<?php if (validation_errors() != false) : ?>
+		<div class="col-sm-3 alert alert-warning" role="alert">
+			<?php echo validation_errors(); ?>
+		</div>
+	<?php endif; ?>
+
 	<div class="table-responsive">
 	 <?php if ($number > 0 ) { ?>
 		<table class="table table-bordered table-hover">

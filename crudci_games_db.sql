@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11/02/2021 às 17:55
+-- Tempo de geração: 18/02/2021 às 22:52
 -- Versão do servidor: 10.4.14-MariaDB
 -- Versão do PHP: 7.2.34
 
@@ -111,7 +111,8 @@ INSERT INTO `tb_users` (`id`, `name`, `email`, `password`, `country`, `nivel`, `
 (27, 'Lucca Tonny', 'lucca@curso.com.br', '6cf82ee1020caef069e753c67a97a70d', 'Italy', 0, 1),
 (28, 'Jhonatan', 'jhonatan@curso.com.br', 'd964173dc44da83eeafa3aebbee9a1a0', 'Brazil', 0, 1),
 (29, 'James', 'james@curso.com.br', '5aca404939840d649859659c44883aed', 'USA', 1, 0),
-(30, 'Gabigol', 'gabigol@curso.com.br', 'f4cc08fa20e1167cba660c5fae1f2a1a', 'Brasil', 0, 1);
+(30, 'Gabigol', 'gabigol@curso.com.br', '838311e27df06b0ef2f0340eff1d56a3', 'Brasil', 0, 0),
+(34, 'Rei', 'rei@curso.com.br', 'dbc4d84bfcfe2284ba11beffb853a8c4', 'Brazil', 0, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -158,7 +159,7 @@ ALTER TABLE `tb_games`
 -- AUTO_INCREMENT de tabela `tb_users`
 --
 ALTER TABLE `tb_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Restrições para tabelas despejadas

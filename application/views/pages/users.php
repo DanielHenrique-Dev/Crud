@@ -22,7 +22,7 @@
 					<th>Nivel de acesso</th>
 				   <?php endif; ?>	
 				   <?php if($this->session->logged_user['nivel'] == 0) :?>
-					<th>Solicitar nova Senha</th>
+					<th>Editar Cadastro</th>
 				   <?php endif; ?>	
 				</tr>
 			</thead>
@@ -53,8 +53,7 @@
 							<td><?= $user['email'] ?></td>
 							<td><?= $user['country'] ?></td>
 							<td>
-	
-								<a href="javascript:Mensagem()" class="btn btn-sm btn-danger"><i class="fas fa-key"></i></a>
+								<a href="<?= base_url() ?>users/edit_user/<?= $user['id'] ?>"> <i class="fas fa-user-edit"></i> </a>
 							</td>
 						</tr>
 				  <?php endif; ?>		
