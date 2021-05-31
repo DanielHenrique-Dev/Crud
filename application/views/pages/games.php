@@ -25,7 +25,7 @@
 					<tr>
 						<th>#</th>
 						<th>Name</th>
-						<th>Price</th>
+						<th>Preço</th>
 						<th>Category</th>
 						<th>Developer</th>
 						<th>Actions</th>
