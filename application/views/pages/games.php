@@ -26,7 +26,7 @@
 						<th>#</th>
 						<th>Name</th>
 						<th>Preço</th>
-						<th>Category</th>
+						<th>Categoria</th>
 						<th>Developer</th>
 						<th>Actions</th>
 					</tr>
